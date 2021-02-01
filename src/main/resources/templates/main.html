@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Example of Project</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div>
+        <form method="post" action="add">
+            <input type="text" name="text" placeholder="Введите ваше сообщение"/>
+            <input type="text" name="tag" placeholder="Тэг"/>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <form method="post" action="filter">
+        <input type="text" name="filter">
+        <button type="submit">Найти</button>
+    </form>
+    <div>Список сообщений</div>
+    <div th:if="${not #lists.isEmpty(messages)}">
+        <table>
+            <tbody>
+            <tr th:each="msg : ${messages}">
+                <td><span th:text="${msg.getId()}"> ID </span></td>
+                <td><span th:text="${msg.getText()}"> Text </span></td>
+                <td><span th:text="${msg.getTag()}"> Tag </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p th:text="${some}" />
+</body>
+</html>
