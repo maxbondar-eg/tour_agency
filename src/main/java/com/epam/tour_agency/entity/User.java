@@ -1,8 +1,12 @@
 package com.epam.tour_agency.entity;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,22 +16,103 @@ import javax.persistence.*;
 @ToString
 
 @Entity
-@Table( name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"login"})})
-public class User {
+@Table( name="account",
+        uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
+public class User implements UserDetails {
     @Id
-    @GeneratedValue (strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Column(name = "first_name", nullable = false)
+    @GeneratedValue (strategy = GenerationType.AUTO)
+    private Integer id;
     private String firstName;
-    @Column(name = "last_name", nullable = false)
     private String lastName;
-    @Column(name = "login", nullable = false)
-    private String login;
-    @Column(name = "password", nullable = false)
+    private String username;
     private String password;
-    @Column(name = "role")
+    private boolean active;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name= "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    private RoleType role;
+    private Set<Role> roles;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return isActive();
+    }
 }

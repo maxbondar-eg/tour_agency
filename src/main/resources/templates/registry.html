@@ -5,16 +5,16 @@
     <title>Registry</title>
 </head>
 <body>
-<div>
-    <h1 th:text="${some}"></h1>
+<div th:if="${message != null}">
+    <p th:text="${message}" />
 </div>
-<div>
-    <form method="post" th:action="@{/registry}" th:object="${user}">
-        <input type="text" th:field="*{firstName}" name="name" placeholder="Имя"/>
-        <input type="text" th:field="*{LastName}" name="surname" placeholder="Фамилия"/>
-        <input type="text" th:field="*{login}" name="login" placeholder="Логин"/>
-        <input type="text" th:field="*{password}" name="password" placeholder="Пароль"/>
-        <button type="submit">Зарегестрироватся</button>
+<div align="center">
+    <form method="post" th:action="@{/registry}">
+        <div><label th:text="#{user.firstname}"></label><input type="text" name="firstName"/></div>
+        <div><label th:text="#{user.lastname}"></label><input type="text" name="lastName"/></div>
+        <div><label th:text="#{user.login}"></label><input type="text" name="username"/></div>
+        <div><label th:text="#{user.password}"></label> <input type="password" name="password"/></div>
+        <div><input type="submit" th:value="#{main.registry}"/></div>
     </form>
 </div>
 </body>

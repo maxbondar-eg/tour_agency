@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8" />
+</head>
+<body>
+<div th:fragment="navbar">
+    <h2 th:text="#{greeting}" align="center"/>
+    <div align="right">
+        <button type="button" th:text="#{lang.eng}" onclick="window.location.href='http://localhost:8080/?lang=us'">
+            <img th:src="@{/images/uk.png}">
+        </button>
+        <img th:src="@{/images/uk.png}">
+        <button th:text="#{lang.ukr}" onclick="window.location.href='http://localhost:8080/?lang=ua'">
+            <img th:src="@{/images/ua.png}">
+        </button>
+        <img th:src="@{/images/ua.png}">
+        <a th:href="@{/login}"><h3 th:text="#{main.login}"/></a>
+        <a th:href="@{/registry}"><h3 th:text="#{main.registry}"/></a>
+    </div>
+    <div align="left">
+            <a th:href="@{/}"><h3 th:text="#{navi.mainpage}"/></a>
+            <a th:href="@{/cabinet}"><h3 th:text="#{navi.cabinet}" th:if="${#request.isUserInRole('ROLE_USER')}"/></a>
+            <a th:href="@{/tourcontrol}"><h3 th:text="#{navi.tours}"/></a>
+            <a th:href="@{/usercontrol}"><h3 th:text="#{navi.users}"/></a>
+    </div>
+</div>
+<p>Go to the next page to see fragments in action</p>
+<aside>
+    <div>This is a sidebar</div>
+</aside>
+<div class="another">This is another sidebar</div>
+<footer th:fragment="footer">
+    <a th:href="@{/fragments}">Fragments Index</a> |
+    <a th:href="@{/markup}">Markup inclussion</a> |
+    <a th:href="@{/params}">Fragment params</a> |
+    <a th:href="@{/other}">Other</a>
+</footer>
+</body>
+</html>

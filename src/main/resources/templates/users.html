@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Example of Project</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="parts.html :: navbar"></div>
+<div th:if="${not #lists.isEmpty(users)}">
+    <table>
+        <thead>
+        <tr>
+            <th th:text="#{user.login}"></th>
+            <th th:text="#{user.roles}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.username}"> Name </span></td>
+            <td th:each="role : ${user.roles}">
+                <span th:text="${role}"></span>
+            </td>
+            <td><a th:href="@{/usercontrol/{id}(id = ${user.id})}" th:text="#{user.change}">##</a> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<img th:src="@{/images/test.jpg}">
+</body>
+</html>
