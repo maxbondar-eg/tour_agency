@@ -19,7 +19,7 @@ public class Tour {
     private String name;
     private String description;
     private Integer price;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private TourType tourType;
     private int peopleAmount;
     private Byte stars;
