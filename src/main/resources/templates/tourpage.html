@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Example of Project</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
+<div th:replace="parts.html :: navbar"></div>
+<div>
+    <div><h2 th:text="#{tour.name}"></h2><span th:text="${tour.name}"/></div>
+    <img th:src="@{${'/images/' + tour.img}}">
+    <div><label th:text="#{tour.price}"></label><span th:text="${tour.price}"/></div>
+    <div><label th:text="#{tour.type}"></label><span th:text="${tour.tourType}"/></div>
+    <div><label th:text="#{tour.stars}"></label><span th:text="${tour.stars}"/></div>
+    <div><label th:text="#{tour.description}"></label><span th:text="${tour.description}"/></div>
+    <form th:action="@{/tour/buy}" method="post">
+        <div><label th:text="#{tour.buy.quantity}"></label><input type="text" name="quantity"/></div>
+        <input type="hidden" th:value="${tour.id}" name="tourId"/>
+        <input type="submit" th:value="#{tour.buy}"/>
+    </form>
+</div>
+<img th:src="@{/images/test.jpg}">
 </body>
 </html>

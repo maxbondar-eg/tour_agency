@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registry</title>
+</head>
+<body>
+<div th:if="${message != null}">
+    <p th:text="${message}" />
+</div>
+<div align="center">
+    <form method="post">
+        <div><label th:text="#{tour.name}"></label><input type="text" name="name"/></div>
+        <div><label th:text="#{tour.description}"></label><input type="text" name="description"/></div>
+        <div><label th:text="#{tour.price}"></label><input type="text" name="price"/></div>
+        <div>
+            <select name="tourType">
+                <option th:each="type : ${T(com.epam.tour_agency.entity.TourType).values()}"
+                        th:value="${type}" value="kek" th:text="${type}"></option>
+            </select>
+        </div>
+        <div><label th:text="#{tour.amount}"></label> <input type="text" name="peopleAmount"/></div>
+        <div><label th:text="#{tour.stars}"></label> <input type="text" name="stars"/></div>
+        <select name="isHot">
+            <option value="1" th:text="#{tour.hot}"></option>
+            <option value="0" th:text="#{tour.notHot}"></option>
+        </select>
+        <div><label th:text="#{tour.img}"></label> <input type="text" name="img"/></div>
+        <div><input type="submit" th:value="#{tour.add}"/></div>
+    </form>
+</div>
+</body>
+</html>

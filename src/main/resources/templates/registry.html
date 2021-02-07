@@ -10,7 +10,10 @@
 </div>
 <div align="center">
     <form method="post" th:action="@{/registry}">
-        <div><label th:text="#{user.firstname}"></label><input type="text" name="firstName"/></div>
+        <div>
+            <label th:text="#{user.firstname}"></label><input type="text" name="firstName"/>
+            <span th:text="${firstNameError}"/>
+        </div>
         <div><label th:text="#{user.lastname}"></label><input type="text" name="lastName"/></div>
         <div><label th:text="#{user.login}"></label><input type="text" name="username"/></div>
         <div><label th:text="#{user.password}"></label> <input type="password" name="password"/></div>

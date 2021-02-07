@@ -16,6 +16,7 @@ import java.util.Locale;
 @Configuration
 @ComponentScan(basePackages = "com.example.sweater")
 public class MvcConfig implements WebMvcConfigurer {
+    //TODO i18n validation
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");

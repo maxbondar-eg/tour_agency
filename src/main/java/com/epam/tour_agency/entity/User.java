@@ -1,10 +1,12 @@
 package com.epam.tour_agency.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.Set;
 
@@ -22,11 +24,18 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Integer id;
+    @NotBlank(message = "Please fill first name")
+    @Length(max = 2048, message = "name too long")
     private String firstName;
+    @NotBlank(message = "Please fill last name")
     private String lastName;
+    @NotBlank(message = "Please fill login")
     private String username;
+    @NotBlank(message = "Please fill password")
     private String password;
     private boolean active;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<TourOrder> tourOrders;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name= "user_role", joinColumns = @JoinColumn(name = "user_id"))

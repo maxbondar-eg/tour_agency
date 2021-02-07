@@ -25,14 +25,11 @@
     <div align="left">
             <a th:href="@{/}"><h3 th:text="#{navi.mainpage}"/></a>
             <a th:href="@{/cabinet}"><h3 th:text="#{navi.cabinet}" th:if="${#request.isUserInRole('ROLE_USER')}"/></a>
+            <a th:href="@{/orders}"><h3 th:text="#{navi.orders}"/></a>
             <a th:href="@{/tourcontrol}"><h3 th:text="#{navi.tours}"/></a>
             <a th:href="@{/usercontrol}"><h3 th:text="#{navi.users}"/></a>
     </div>
 </div>
-<p>Go to the next page to see fragments in action</p>
-<aside>
-    <div>This is a sidebar</div>
-</aside>
 <div class="another">This is another sidebar</div>
 <footer th:fragment="footer">
     <a th:href="@{/fragments}">Fragments Index</a> |

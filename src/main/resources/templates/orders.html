@@ -6,29 +6,36 @@
 </head>
 <body>
 <div th:replace="parts.html :: navbar"></div>
-<div>
-    <div><label th:text="#{user.firstname}"></label><span th:text="${user.firstName}"/></div>
-    <div><label th:text="#{user.lastname}"></label><span th:text="${user.lastName}"/></div>
-    <div><label th:text="#{user.login}"></label><span th:text="${user.username}"/></div>
-    <div><label th:text="#{user.toursquantity}"></label><span th:text="${toursquantity}"/></div>
-</div>
-<h4 th:text="#{user.tours}"/>
 <div th:if="${not #lists.isEmpty(orderList)}">
     <table>
         <thead>
         <tr>
             <th th:text="#{tour.order.id}"/>
+            <th th:text="#{tour.order.customer}"/>
             <th th:text="#{tour.order.name}"/>
             <th th:text="#{tour.order.quantity}"/>
-            <th th:text="#{tour.order.status}"/>
         </tr>
         </thead>
         <tbody>
         <tr th:each="order : ${orderList}">
             <td><h5 th:text="${order.id}"/></td>
+            <td><h5 th:text="${order.customer.username}"/></td>
             <td><h5 th:text="${order.tour.getName()}"/></td>
             <td><h5 th:text="${order.ticketsQuantity}"/></td>
             <td><h5 th:text="${order.status}"/></td>
+            <td>
+                <form th:action="@{/orders/canceled}" method="post">
+                    <input type="hidden" th:value="${order.id}" name="orderId"/>
+                    <input type="submit" th:value="#{order.canceled}"/>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/orders/paid}" method="post">
+                    <input type="hidden" th:value="${order.id}" name="orderId"/>
+                    <input type="submit" th:value="#{order.paid}"/>
+                </form>
+            </td>
+
         </tr>
         </tbody>
     </table>

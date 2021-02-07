@@ -1,12 +1,35 @@
 <!DOCTYPE HTML>
+<!--suppress XmlUnboundNsPrefix -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Example of Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+<div th:if="${message != null}">
+    <p th:text="${message}" />
+</div>
 <div th:replace="parts.html :: navbar"></div>
+<h2><a th:href="@{tourcontrol/add}" th:text="#{tour.add}"/></h2>
+<div>
+    <div th:if="${not #lists.isEmpty(tours)}">
+        <div th:each="tour : ${tours}">
+            <h4 th:text="${tour.name}"></h4>
+            <img th:src="@{${'/images/' + tour.img}}">
+            <span th:text="${tour.price}"/>
+            <span th:text="${tour.tourType}"/>
+            <span th:text="${tour.description}"/>
+            <a th:href="@{/tourcontrol/{id}(id = ${tour.id})}" th:text="#{tour.edit}"/>
+            <form th:action="@{/tourcontrol/delete}" method="get">
+                <input type="hidden" th:value="${tour.id}" name="tourId"/>
+                <input type="submit" th:value="#{tour.delete}"/>
+            </form>
+        </div>
 
+    </div>
+</div>
+
+</div>
 <img th:src="@{/images/test.jpg}">
 </body>
 </html>
