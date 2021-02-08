@@ -3,36 +3,46 @@
 <head>
     <title>Example of Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 <body>
 <div th:replace="parts.html :: navbar"></div>
-<div>
-    <div><label th:text="#{user.firstname}"></label><span th:text="${user.firstName}"/></div>
-    <div><label th:text="#{user.lastname}"></label><span th:text="${user.lastName}"/></div>
-    <div><label th:text="#{user.login}"></label><span th:text="${user.username}"/></div>
-    <div><label th:text="#{user.toursquantity}"></label><span th:text="${toursquantity}"/></div>
+<div class="container mt-5">
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" th:text="#{user.firstname}"></label>
+        <label class="col-sm-2 col-form-label" th:text="${user.firstName}"></label>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" th:text="#{user.lastname}"></label>
+        <label class="col-sm-2 col-form-label" th:text="${user.lastName}"></label>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" th:text="#{user.login}"></label>
+        <label class="col-sm-2 col-form-label" th:text="${user.username}"></label>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" th:text="#{user.toursquantity}"></label>
+        <label class="col-sm-2 col-form-label" th:text="${toursquantity}"></label>
+    </div>
+    <h4 th:text="#{user.tours}"/>
+    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(orderList)}">
+        <div class="col" th:each="order : ${orderList}">
+            <div class="card text-center border-primary mb-3 h-100" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 th:text="${order.id}"/>
+                    <p><span th:text="#{tour.order.name} + ': '"/><span th:text="${order.tour.getName()}"/></p>
+                    <p><span th:text="#{tour.order.quantity} + ': '"/><span th:text="${order.ticketsQuantity}"/></p>
+                </div>
+                <div class="card-footer">
+                    <h6 th:text="${order.status}"/>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<h4 th:text="#{user.tours}"/>
-<div th:if="${not #lists.isEmpty(orderList)}">
-    <table>
-        <thead>
-        <tr>
-            <th th:text="#{tour.order.id}"/>
-            <th th:text="#{tour.order.name}"/>
-            <th th:text="#{tour.order.quantity}"/>
-            <th th:text="#{tour.order.status}"/>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${orderList}">
-            <td><h5 th:text="${order.id}"/></td>
-            <td><h5 th:text="${order.tour.getName()}"/></td>
-            <td><h5 th:text="${order.ticketsQuantity}"/></td>
-            <td><h5 th:text="${order.status}"/></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<img th:src="@{/images/test.jpg}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

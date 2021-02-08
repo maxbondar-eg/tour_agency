@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Example of Project</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<div th:replace="parts.html :: navbar"></div>
+<div th:if="${not #lists.isEmpty(tours)}">
+    <div th:each="tour : ${tours}">
+        <img th:src="@{${'/images/' + tour.img}}">
+        <h4 th:text="${tour.name}"></h4>
+        <span th:text="${tour.price}"/>
+        <span th:text="${tour.tourType}"/>
+        <span th:text="${tour.description}"/>
+        <span th:text="${tour.peopleAmount}"/>
+        <a th:href="@{/tour/{id}(id = ${tour.id})}" th:text="#{tour.details}"/>
+
+    </div>
+
+</div>
+<img th:src="@{/images/test.jpg}">
+</body>
+</html>

@@ -3,43 +3,39 @@
 <head>
     <title>Example of Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 <body>
 <div th:replace="parts.html :: navbar"></div>
-<div th:if="${not #lists.isEmpty(orderList)}">
-    <table>
-        <thead>
-        <tr>
-            <th th:text="#{tour.order.id}"/>
-            <th th:text="#{tour.order.customer}"/>
-            <th th:text="#{tour.order.name}"/>
-            <th th:text="#{tour.order.quantity}"/>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="order : ${orderList}">
-            <td><h5 th:text="${order.id}"/></td>
-            <td><h5 th:text="${order.customer.username}"/></td>
-            <td><h5 th:text="${order.tour.getName()}"/></td>
-            <td><h5 th:text="${order.ticketsQuantity}"/></td>
-            <td><h5 th:text="${order.status}"/></td>
-            <td>
-                <form th:action="@{/orders/canceled}" method="post">
-                    <input type="hidden" th:value="${order.id}" name="orderId"/>
-                    <input type="submit" th:value="#{order.canceled}"/>
-                </form>
-            </td>
-            <td>
-                <form th:action="@{/orders/paid}" method="post">
-                    <input type="hidden" th:value="${order.id}" name="orderId"/>
-                    <input type="submit" th:value="#{order.paid}"/>
-                </form>
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
+<div class="container mt-5">
+    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(orderList)}">
+        <div class="col" th:each="order : ${orderList}">
+            <div class="card text-center border-primary mb-3 h-100" style="width: 18rem;">
+                <div class="card-header">
+                    <h6><span th:text="#{tour.order.id} + ': '"/><span th:text="${order.id}"/></h6>
+                </div>
+                <div class="card-body">
+                    <p><span th:text="#{tour.order.name} + ': '"/><span th:text="${order.tour.getName()}"/></p>
+                    <p><span th:text="#{tour.order.customer} + ': '"/><span th:text="${order.customer.username}"/></p>
+                    <p><span th:text="#{tour.order.quantity} + ': '"/><span th:text="${order.ticketsQuantity}"/></p>
+                </div>
+                <div class="card-footer">
+                    <form th:action="@{/orders/canceled}" method="post">
+                        <input type="hidden" th:value="${order.id}" name="orderId"/>
+                        <input class="btn btn-primary mb-1" type="submit" th:value="#{order.canceled}"/>
+                    </form>
+                    <form th:action="@{/orders/paid}" method="post">
+                        <input type="hidden" th:value="${order.id}" name="orderId"/>
+                        <input class="btn btn-primary" type="submit" th:value="#{order.paid}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<img th:src="@{/images/test.jpg}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

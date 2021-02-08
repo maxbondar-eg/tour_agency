@@ -6,36 +6,42 @@
 </head>
 <body>
 <div th:fragment="navbar">
-    <h2 th:text="#{greeting}" align="center"/>
-    <div align="right">
-        <button type="button" th:text="#{lang.eng}" onclick="window.location.href='http://localhost:8080/?lang=us'">
-            <img th:src="@{/images/uk.png}">
-        </button>
-        <img th:src="@{/images/uk.png}">
-        <button th:text="#{lang.ukr}" onclick="window.location.href='http://localhost:8080/?lang=ua'">
-            <img th:src="@{/images/ua.png}">
-        </button>
-        <img th:src="@{/images/ua.png}">
-        <a th:href="@{/login}" sec:authorize="isAnonymous()"><h3 th:text="#{main.login}"/></a>
-        <a th:href="@{/registry}" sec:authorize="isAnonymous()"><h3 th:text="#{main.registry}"/></a>
-        <form th:action="@{/logout}" method="post" sec:authorize="isAuthenticated()">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
-    <div align="left">
-            <a th:href="@{/}"><h3 th:text="#{navi.mainpage}"/></a>
-            <a th:href="@{/cabinet}"><h3 th:text="#{navi.cabinet}" th:if="${#request.isUserInRole('ROLE_USER')}"/></a>
-            <a th:href="@{/orders}"><h3 th:text="#{navi.orders}"/></a>
-            <a th:href="@{/tourcontrol}"><h3 th:text="#{navi.tours}"/></a>
-            <a th:href="@{/usercontrol}"><h3 th:text="#{navi.users}"/></a>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/}" th:text="#{navi.mainpage}"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse mr-auto" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/cabinet}" th:text="#{navi.cabinet}" th:if="${#request.isUserInRole('ROLE_USER')}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/orders}" th:text="#{navi.orders}" th:if="${#request.isUserInRole('ROLE_MANAGER')}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/tourcontrol}" th:text="#{navi.tours}" th:if="${#request.isUserInRole('ROLE_SUPERADMIN')}"></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/usercontrol}" th:text="#{navi.users}" th:if="${#request.isUserInRole('ROLE_SUPERADMIN')}"></a>
+                    </li>
+                </ul>
+                <div class="navbar-text mx-auto">
+                    <h3 th:text="#{greeting}"/>
+                </div>
+            </div>
+            <button class="btn btn-default ml-auto" type="button" onclick="window.location.href='http://localhost:8080/?lang=us'">
+                <img th:src="@{/images/uk.png}">
+            </button>
+            <button class="btn btn-default" type="button" onclick="window.location.href='http://localhost:8080/?lang=ua'">
+                <img th:src="@{/images/ua.png}">
+            </button>
+            <a class="nav-link active" aria-current="page" th:href="@{/login}" sec:authorize="isAnonymous()" th:text="#{main.login}"></a>
+            <a class="nav-link active" aria-current="page" th:href="@{/registry}" sec:authorize="isAnonymous()" th:text="#{main.registry}"></a>
+            <a class="nav-link active" aria-current="page" th:href="@{/logout}" sec:authorize="isAuthenticated()" th:text="#{main.logout}"></a>
+        </div>
+    </nav>
 </div>
-<div class="another">This is another sidebar</div>
-<footer th:fragment="footer">
-    <a th:href="@{/fragments}">Fragments Index</a> |
-    <a th:href="@{/markup}">Markup inclussion</a> |
-    <a th:href="@{/params}">Fragment params</a> |
-    <a th:href="@{/other}">Other</a>
-</footer>
 </body>
 </html>

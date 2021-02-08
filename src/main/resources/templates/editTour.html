@@ -3,31 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Registry</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 <body>
+<div th:replace="parts.html :: navbar"></div>
 <div th:if="${message != null}">
     <p th:text="${message}" />
 </div>
 <div align="center">
     <form method="post">
-        <div><label th:text="#{tour.name}"></label><input type="text" name="name" th:value="${tour.name}"/></div>
-        <div><label th:text="#{tour.description}"></label><input type="text" name="description" th:value="${tour.description}"/></div>
-        <div><label th:text="#{tour.price}"></label><input type="text" name="price" th:value="${tour.price}"/></div>
-        <div>
-            <select name="tourType">
-                <option th:each="type : ${T(com.epam.tour_agency.entity.TourType).values()}"
-                        th:value="${type}" value="kek" th:text="${type}"></option>
-            </select>
+        <div class="row mb-3 mt-5 align-items-center">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.name}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="name" th:value="${tour.name}" required/>
+            </div>
         </div>
-        <div><label th:text="#{tour.amount}"></label> <input type="text" name="peopleAmount" th:value="${tour.peopleAmount}"/></div>
-        <div><label th:text="#{tour.stars}"></label> <input type="text" name="stars" th:value="${tour.stars}"/></div>
-        <select name="isHot">
-            <option value="1" th:text="#{tour.hot}"></option>
-            <option value="0" th:text="#{tour.notHot}"></option>
-        </select>
-        <div><label th:text="#{tour.img}"></label> <input type="text" name="img" th:value="${tour.img}"/></div>
-        <div><input type="submit" th:value="#{tour.edit}"/></div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.description}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="description" th:value="${tour.description}" required/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.price}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="price" th:value="${tour.price}" required/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.type}"></label>
+            <div class="col-sm-5">
+                <select class="form-select" name="tourType">
+                    <option th:each="type : ${T(com.epam.tour_agency.entity.TourType).values()}"
+                            th:value="${type}" value="kek" th:text="${type}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.amount}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="peopleAmount" th:value="${tour.peopleAmount}" required/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.stars}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="stars" th:value="${tour.stars}" required/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.isHot}"></label>
+            <div class="col-sm-5">
+                <select class="form-select" name="isHot">
+                    <option value="1" th:text="#{tour.hot}"></option>
+                    <option value="0" th:text="#{tour.notHot}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" th:text="#{tour.img}"></label>
+            <div class="col-sm-5">
+                <input class="form-control" type="text" name="img" th:value="${tour.img}" required/>
+            </div>
+        </div>
+        <div><button class="btn btn-primary" type="submit" th:text="#{tour.edit}"></button></div>
     </form>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

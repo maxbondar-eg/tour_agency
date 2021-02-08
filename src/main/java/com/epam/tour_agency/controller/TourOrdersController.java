@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 @Controller
 @PreAuthorize("hasAuthority('ROLE_USER')")
 public class TourOrdersController {
@@ -24,9 +26,10 @@ public class TourOrdersController {
 
     @GetMapping("/cabinet")
     public String userCabinet(@AuthenticationPrincipal User user, Model model){
+        List<TourOrder> userTours = tourOrderService.findByCustomerId(user.getId());
         model.addAttribute("user", user);
-        model.addAttribute("toursquantity", user.getTourOrders().size());
-        model.addAttribute("orderList", tourOrderService.findByCustomerId(user.getId()));
+        model.addAttribute("toursquantity", userTours.size());
+        model.addAttribute("orderList", userTours);
         return "mycabinet";
     }
 

@@ -3,28 +3,26 @@
 <head>
     <title>Example of Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 <body>
 <div th:replace="parts.html :: navbar"></div>
-<div th:if="${not #lists.isEmpty(users)}">
-    <table>
-        <thead>
-        <tr>
-            <th th:text="#{user.login}"></th>
-            <th th:text="#{user.roles}"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users}">
-            <td><span th:text="${user.username}"> Name </span></td>
-            <td th:each="role : ${user.roles}">
-                <span th:text="${role}"></span>
-            </td>
-            <td><a th:href="@{/usercontrol/{id}(id = ${user.id})}" th:text="#{user.change}">##</a> </td>
-        </tr>
-        </tbody>
-    </table>
+<div class="container mt-3">
+    <div class="row mt-3 mb-3">
+        <label class="col-sm-2 col-form-label" th:text="#{user.login}"></label>
+        <label class="col-sm-2 col-form-label" th:text="#{user.roles}"></label>
+    </div>
+    <div class="row mb-3" th:each="user : ${users}">
+        <div>
+            <label class="col-sm-2 col-form-label" th:text="${user.username}"></label>
+            <label class="col-sm-2 col-form-label" th:text="${role}" th:each="role : ${user.roles}"></label>
+            <label class="col-sm-2 col-form-label"><a class="btn btn-primary" th:href="@{/usercontrol/{id}(id = ${user.id})}" th:text="#{user.change}"/></label>
+        </div>
+    </div>
 </div>
-<img th:src="@{/images/test.jpg}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -4,32 +4,42 @@
 <head>
     <title>Example of Project</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
 </head>
 <body>
 <div th:if="${message != null}">
     <p th:text="${message}" />
 </div>
 <div th:replace="parts.html :: navbar"></div>
-<h2><a th:href="@{tourcontrol/add}" th:text="#{tour.add}"/></h2>
-<div>
-    <div th:if="${not #lists.isEmpty(tours)}">
-        <div th:each="tour : ${tours}">
-            <h4 th:text="${tour.name}"></h4>
-            <img th:src="@{${'/images/' + tour.img}}">
-            <span th:text="${tour.price}"/>
-            <span th:text="${tour.tourType}"/>
-            <span th:text="${tour.description}"/>
-            <a th:href="@{/tourcontrol/{id}(id = ${tour.id})}" th:text="#{tour.edit}"/>
-            <form th:action="@{/tourcontrol/delete}" method="get">
-                <input type="hidden" th:value="${tour.id}" name="tourId"/>
-                <input type="submit" th:value="#{tour.delete}"/>
-            </form>
+<div class="container mt-5">
+    <div class="text-center">
+        <h2><a class="btn btn-primary" th:href="@{tourcontrol/add}" th:text="#{tour.add}"/></h2>
+    </div>
+    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(tours)}">
+        <div class="col" th:each="tour : ${tours}">
+            <div class="card text-center border-primary mb-3 h-100" style="width: 18rem;">
+                <div class="card-header">
+                    <h4 th:text="${tour.name}"></h4>
+                </div>
+                <img th:src="@{${'/images/' + tour.img}}">
+                <div class="card-body">
+                    <h5 th:text="${tour.price}"/>
+                    <p th:text="${tour.description}"/>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary mb-1" th:href="@{/tourcontrol/{id}(id = ${tour.id})}" th:text="#{tour.edit}"/>
+                    <form th:action="@{/tourcontrol/delete}" method="get">
+                        <input type="hidden" th:value="${tour.id}" name="tourId"/>
+                        <input class="btn btn-primary" type="submit" th:value="#{tour.delete}"/>
+                    </form>
+                </div>
+            </div>
         </div>
-
     </div>
 </div>
-
-</div>
-<img th:src="@{/images/test.jpg}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
 </html>
