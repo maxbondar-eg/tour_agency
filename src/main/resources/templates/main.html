@@ -13,7 +13,7 @@
 <div class="container mt-5">
     <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(tours)}">
         <div class="col" th:each="tour : ${tours}">
-            <div class="card text-center border-primary mb-3 h-100" style="width: 18rem;">
+            <div class="card text-center border-primary mb-3 h-100" th:style="${tour.isHot}? 'background color: #FF3300' : 'background color: #FF3300'">
                 <div class="card-header">
                     <h4 th:text="${tour.name}"></h4>
                 </div>
