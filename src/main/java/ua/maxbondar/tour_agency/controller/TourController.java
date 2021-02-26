@@ -1,5 +1,8 @@
 package ua.maxbondar.tour_agency.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.BindingResult;
 import ua.maxbondar.tour_agency.entity.Tour;
 import ua.maxbondar.tour_agency.entity.TourType;
@@ -19,8 +22,8 @@ public class TourController {
     private TourService tourService;
 
     @GetMapping
-    public String tourPanel(Model model){
-        model.addAttribute("tours",tourService.findAll());
+    public String tourPanel(Model model, @PageableDefault(size = 3, sort = {"isHot"}, direction = Sort.Direction.ASC) Pageable pageable){
+        model.addAttribute("tours",tourService.findAll(pageable));
         return "tours";
     }
 

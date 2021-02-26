@@ -1,5 +1,6 @@
 package ua.maxbondar.tour_agency.config;
 
+import lombok.extern.slf4j.Slf4j;
 import ua.maxbondar.tour_agency.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -44,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logout()
                     .permitAll()
                     .logoutSuccessUrl("/");
+        log.info("Web security was successfully configured!");
     }
 
     @Override

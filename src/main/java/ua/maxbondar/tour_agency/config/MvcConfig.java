@@ -1,5 +1,6 @@
 package ua.maxbondar.tour_agency.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,10 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import java.util.Locale;
 
+@Slf4j
 @Configuration
 @ComponentScan(basePackages = "com.example.sweater")
 public class MvcConfig implements WebMvcConfigurer {
-    //TODO i18n validation
 
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
@@ -26,6 +27,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
         slr.setDefaultLocale(Locale.US);
+        log.info("SessionLocaleResolver defined with default locale - US");
         return slr;
     }
 
@@ -33,6 +35,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public LocaleChangeInterceptor localeChangeInterceptor() {
         LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
+        log.info("LocaleChangeInterceptor defined with parametr - lang");
         return lci;
     }
 

@@ -1,6 +1,10 @@
 package ua.maxbondar.tour_agency.controller;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import ua.maxbondar.tour_agency.entity.Status;
 import ua.maxbondar.tour_agency.entity.Tour;
 import ua.maxbondar.tour_agency.entity.TourOrder;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
+
 @Controller
 public class MainController {
     @Autowired
@@ -25,8 +30,13 @@ public class MainController {
     private TourService tourService;
 
     @GetMapping("/")
-    public String greeting(Model model) {
-        model.addAttribute("tours", tourService.findAll());
+    public String greeting(Model model, @PageableDefault(size = 3, sort = {"isHot"}, direction = Sort.Direction.DESC)Pageable pageable) {
+        Page<Tour> tours = tourService.findAll(pageable);
+        model.addAttribute("page", tours);
+        if(pageable.getSort().getOrderFor("price") != null){
+            model.addAttribute("priceDir", pageable.getSort().getOrderFor("price").getDirection());
+        }
+        model.addAttribute("pagesNumber", tours.getTotalPages());
         return "main";
     }
 

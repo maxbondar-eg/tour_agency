@@ -11,8 +11,17 @@
 <body>
 <div th:replace="parts.html :: navbar"></div>
 <div class="container mt-5">
-    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(tours)}">
-        <div class="col" th:each="tour : ${tours}">
+    <div class="d-flex justify-content-center">
+        <div class="p-2" >
+            <a class="btn btn-primary" th:href="@{/(page=${page.number}, size=3, sort=price)} + ',DESC'" th:text="#{navi.lessprice}"/>
+        </div>
+        <div class="p-2">
+            <a class="btn btn-primary" th:href="@{/(page=${page.number}, size=3, sort=price)} + ',ASC'" th:text="#{navi.moreprice}" />
+        </div>
+
+    </div>
+    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(page)}">
+        <div class="col" th:each="tour : ${page}">
             <div class="card text-center border-primary mb-3 h-100" th:style="${tour.isHot}? 'background color: #FF3300' : 'background color: #FF3300'">
                 <div class="card-header">
                     <h4 th:text="${tour.name}"></h4>
@@ -28,6 +37,30 @@
             </div>
         </div>
     </div>
+    <nav class aria-label="..." >
+        <ul class="pagination justify-content-center mt-3">
+            <li class="page-item disabled" th:if="${page.getNumber() == 0}">
+                <a class="page-link" href="#" tabindex="-1" th:text="#{navi.previous}"></a>
+            </li>
+            <li class="page-item" th:if="${page.getNumber() > 0}">
+                <a class="page-link" th:href="@{/(page=${page.number-1}, size=3)}" tabindex="-1" th:text="#{navi.previous}"></a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(1, page.totalPages)}">
+                <li class="page-item active" th:if="${i} == ${page.getNumber()+1}">
+                    <a class="page-link" href="#" tabindex="-1" th:text="${i}"></a>
+                </li>
+                <li class="page-item" th:if="${i} != ${page.getNumber()+1}">
+                    <a class="page-link" th:href="@{/(page=${i-1}, size=3)}" tabindex="-1" th:text="${i}"></a>
+                </li>
+            </th:block>
+            <li class="page-item" th:if="${page.getNumber() < page.totalPages-1}">
+                <a class="page-link" th:href="@{/(page=${page.number+1}, size=3)}" tabindex="-1" th:text="#{navi.next}"></a>
+            </li>
+            <li class="page-item disabled" th:if="${page.getNumber() == page.totalPages-1}">
+                <a class="page-link" href="#" tabindex="-1" th:text="#{navi.next}"></a>
+            </li>
+        </ul>
+    </nav>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 </body>
