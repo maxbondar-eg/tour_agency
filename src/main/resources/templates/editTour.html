@@ -37,7 +37,7 @@
             <label class="col-sm-2 col-form-label" th:text="#{tour.type}"></label>
             <div class="col-sm-5">
                 <select class="form-select" name="tourType">
-                    <option th:each="type : ${T(com.epam.tour_agency.entity.TourType).values()}"
+                    <option th:each="type : ${T(ua.maxbondar.tour_agency.entity.TourType).values()}"
                             th:value="${type}" value="kek" th:text="${type}"></option>
                 </select>
             </div>

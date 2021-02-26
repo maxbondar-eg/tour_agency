@@ -23,7 +23,7 @@ public class TourController {
 
     @GetMapping
     public String tourPanel(Model model, @PageableDefault(size = 3, sort = {"isHot"}, direction = Sort.Direction.ASC) Pageable pageable){
-        model.addAttribute("tours",tourService.findAll(pageable));
+        model.addAttribute("page",tourService.findAll(pageable));
         return "tours";
     }
 

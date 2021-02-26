@@ -16,10 +16,10 @@
 <div th:replace="parts.html :: navbar"></div>
 <div class="container mt-5">
     <div class="text-center">
-        <h2><a class="btn btn-primary" th:href="@{tourcontrol/add}" th:text="#{tour.add}"/></h2>
+        <h2><a class="btn btn-primary" th:href="@{/tourcontrol/add}" th:text="#{tour.add}"/></h2>
     </div>
-    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(tours)}">
-        <div class="col" th:each="tour : ${tours}">
+    <div class="row row-cols-3 row-cols-md-3 g-4" th:if="${not #lists.isEmpty(page)}">
+        <div class="col" th:each="tour : ${page}">
             <div class="card text-center border-primary mb-3 h-100" style="width: 18rem;">
                 <div class="card-header">
                     <h4 th:text="${tour.name}"></h4>
@@ -45,14 +45,14 @@
                 <a class="page-link" href="#" tabindex="-1" th:text="#{navi.previous}"></a>
             </li>
             <li class="page-item" th:if="${page.getNumber() > 0}">
-                <a class="page-link" th:href="@{/(page=${page.number-1}, size=3)}" tabindex="-1" th:text="#{navi.previous}"></a>
+                <a class="page-link" th:href="@{/tourcontrol/(page=${page.number-1}, size=3)}" tabindex="-1" th:text="#{navi.previous}"></a>
             </li>
             <th:block th:each="i: ${#numbers.sequence(1, page.totalPages)}">
                 <li class="page-item active" th:if="${i} == ${page.getNumber()+1}">
                     <a class="page-link" href="#" tabindex="-1" th:text="${i}"></a>
                 </li>
                 <li class="page-item" th:if="${i} != ${page.getNumber()+1}">
-                    <a class="page-link" th:href="@{/(page=${i-1}, size=3)}" tabindex="-1" th:text="${i}"></a>
+                    <a class="page-link" th:href="@{/tourcontrol/(page=${i-1}, size=3)}" tabindex="-1" th:text="${i}"></a>
                 </li>
             </th:block>
             <li class="page-item" th:if="${page.getNumber() < page.totalPages-1}">
